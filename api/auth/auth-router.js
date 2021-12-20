@@ -1,6 +1,7 @@
 // Require `checkUsernameFree`, `checkUsernameExists` and `checkPasswordLength`
 // middleware functions from `auth-middleware.js`. You will need them here!
 const router = require("express").Router();
+const { tokenBuilder } = require('./auth-helpers')
 const bcrypt = require("bcryptjs");
 const User = require("../users/users-model");
 const {
@@ -61,16 +62,25 @@ router.post(
     "message": "Invalid credentials"
   }
  */
-router.post("/login", checkUsernameExists, (req, res, next) => {
-  const { password } = req.body;
-  console.log({ password });
-  if (bycrypt.compareSync(password, req.user.password)) {
-    req.session.user = req.user;
-    res.json({ message: `Welcome ${req.user.username}!` });
-  } else {
-    next({ status: 401, message: "Invalid credentials" });
-  }
-});
+  router.post('/login', (req, res, next) => {
+    let { username, password } = req.body
+  
+    User.findBy({ username })
+      .then(([user]) => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+          // here we make this thing called token
+          // it's just a string that's just as good as valid credentials
+          const token = tokenBuilder(user)
+          res.status(200).json({
+            message: `Welcome back ${user.username}...`,
+            token,
+          })
+        } else {
+          next({ status: 401, message: 'Invalid Credentials' })
+        }
+      })
+      .catch(next)
+  })
 /**
   3 [GET] /api/auth/logout
 
