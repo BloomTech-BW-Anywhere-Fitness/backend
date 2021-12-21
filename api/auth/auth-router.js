@@ -3,7 +3,7 @@
 const router = require("express").Router();
 const { tokenBuilder } = require('./auth-helpers')
 const bcrypt = require("bcryptjs");
-const User = require("../users/users-model");
+const User = require("../client/users-model");
 const {
   checkPasswordLength,
   checkUsernameExists,

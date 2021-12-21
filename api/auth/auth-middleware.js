@@ -1,4 +1,4 @@
-const User = require("../users/users-model");
+const User = require("../client/users-model");
 
 /*
   If the user does not have a session saved in the server
