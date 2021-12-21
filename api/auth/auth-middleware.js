@@ -11,11 +11,17 @@ const User = require("../client/users-model");
 function restricted(req, res, next) {
   const token = req.headers.authorization;
   if (!token) {
-    return next({ status: 401, message: "we want a token" });
+    return next({ 
+      status: 401, 
+      message: "we want a token" 
+    });
   }
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
-      return next({ status: 401, message: `your token sucks: ${err.message}` });
+      return next({ 
+        status: 401, 
+        message: `your token sucks: ${err.message}` 
+      });
     }
     req.decodedJwt = decoded;
     next();
@@ -90,6 +96,92 @@ function checkPasswordLength(req, res, next) {
   }
 }
 
+/////////////CLASS/////////////
+
+async function checkClassExists(req, res, next) {
+  const possibleClass = await Classes.getClassById(req.params.id)
+  if (!possibleClass) {
+      next({ status: 401, message: 'that class does not exist'})
+  } else {
+      next()
+  }
+}
+
+async function validateClass(req, res, next) {
+  const { 
+      name,
+      instructor_username,
+      type,
+      start_time,
+      duration,
+      intensity,
+      location,
+      class_size
+  } = req.body
+  if (!name) {
+      next({
+          status: 400,
+          message: "name required"
+      })
+  } else {
+      next()
+  }
+
+  if (!instructor_username) {
+      next({
+          status: 400,
+          message: "instructor's name required"
+      })
+  } else {
+      next()
+  }
+
+  if (!start_time) {
+      next({
+          status: 400,
+          message: "start time required"
+      })
+  } else {
+      next()
+  }
+
+  if (!duration) {
+      next({
+          status: 400,
+          message: "duration required"
+      })
+  } else {
+      next()
+  }
+
+  if (!intensity) {
+      next({
+          status: 400,
+          message: "intensity required"
+      })
+  } else {
+      next()
+  }
+
+  if (!location) {
+      next({
+          status: 400,
+          message: "location required"
+      })
+  } else {
+      next()
+  }
+
+  if (!class_size) {
+      next({
+          status: 400,
+          message: "class size required"
+      })
+  } else {
+      next()
+  }
+
+}
 // Don't forget to add these to the `exports` object so they can be required in other modules
 module.exports = {
   checkRole,
@@ -97,4 +189,6 @@ module.exports = {
   checkUsernameFree,
   checkUsernameExists,
   checkPasswordLength,
+  checkClassExists,
+  validateClass
 };

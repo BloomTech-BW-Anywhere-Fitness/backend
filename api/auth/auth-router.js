@@ -75,6 +75,7 @@ router.post(
           res.status(200).json({
             message: `Welcome back ${user.username}...`,
             token,
+            role: user.role
           })
         } else {
           next({ status: 401, message: 'Invalid Credentials' })
