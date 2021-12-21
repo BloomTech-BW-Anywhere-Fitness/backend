@@ -5,6 +5,7 @@ const { tokenBuilder } = require('./auth-helpers')
 const bcrypt = require("bcryptjs");
 const User = require("../client/users-model");
 const {
+ 
   checkPasswordLength,
   checkUsernameExists,
   checkUsernameFree,

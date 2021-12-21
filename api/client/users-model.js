@@ -1,38 +1,34 @@
-const db = require("../../data/db-config");
-/**
-  resolves to an ARRAY with all users, each user having { user_id, username }
- */
-function find() {
-  return db("users").select("user_id", "username");
-}
+const db = require("../../data/db-config")
 
-function findBy(filter) {
-  return db("users").where(filter);
-}
-
-/**
-    resolves to the user { user_id, username } with the given user_id
-   */
-function findById(user_id) {
-  return db("users")
-    .select("user_id", "username")
-    .where("user_id", user_id)
-    .first();
-}
-
-/**
-    re solves to the newly inserted user { user_id, username }
-   */
-
-async function add(user) {
-  const [id] = await db("users").insert(user);
-  return findById(id);
-}
-
-// Don't forget to add these to the `exports` object so they can be required in other modules
 module.exports = {
+  add,
   find,
   findBy,
   findById,
-  add,
-};
+}
+
+function find() {
+  return db("users as u")
+    .join("roles as r", "u.role", "=", "r.id")
+    .select("u.id", "u.username", "r.name as role")
+}
+
+function findBy(filter) {
+  return db("users as u")
+    .join("roles as r", "u.role", "=", "r.id")
+    .select("u.id", "u.username", "r.name as role", "u.password")
+    .where(filter)
+}
+
+async function add(user) {
+  const [id] = await db("users").insert(user)
+  return findById(id)
+}
+
+function findById(id) {
+  return db("users as u")
+    .join("roles as r", "u.role", "=", "r.id")
+    .select("u.id", "u.username", "r.name as role")
+    .where("u.id", id)
+    .first()
+}
