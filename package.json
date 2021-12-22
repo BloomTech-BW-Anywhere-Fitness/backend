@@ -1,12 +1,16 @@
 {
+  "name": "build-week-fitness-anywhere-5",
+  "version": "1.0.0",
   "scripts": {
-    "start": "serve -s build",
+    "start": "node index.js",
     "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "deploy": "git push heroku main"
+    "deploy": "git push heroku main",
+    "heroku-prebuild": "npm install -f",
+    "heroku-postbuild": "npm run prod"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
