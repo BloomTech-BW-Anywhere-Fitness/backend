@@ -2,9 +2,9 @@
   "scripts": {
     "dev": "react-scripts start",
      "start": "serve -s build",
-     "build": "react-scripts build",
 
-     "eject": "react-scripts eject",
+
+
 
 
     "server": "nodemon index.js",
