@@ -1,17 +1,12 @@
 {
   "scripts": {
-    "dev": "react-scripts start",
-     "start": "serve -s build",
-
-
-
-
-
+    "start": "node index.js",
     "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "deploy": "git push heroku main"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -25,7 +20,6 @@
     "knex": "^0.95.14",
     "migrate": "^1.7.0",
     "package.json": "^2.0.1",
-    "serve": "^13.0.2",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
