@@ -1,6 +1,6 @@
 // DO NOT CHANGE THIS FILE
 const sharedConfig = {
-  client: "sqlite3",
+  client: "pg",
   useNullAsDefault: true,
   migrations: {
     directory: "./data/migrations",
@@ -24,5 +24,13 @@ module.exports = {
   testing: {
     ...sharedConfig,
     connection: { filename: "./data/testing.db3" },
+  },
+  production: {
+    ...sharedConfig,
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10,
+    }
   },
 };
