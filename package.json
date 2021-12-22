@@ -8,10 +8,10 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "migrateh": "heroku run knex migrate:latest -a bw-fitness-anywhere-5",
-    "rollbackh": "heroku run knex migrate:rollback -a bw-fitness-anywhere-5",
-    "databaseh": "heroku pg:psql -a bw-fitness-anywhere-5",
-    "seedh": "heroku run knex seed:run -a bw-fitness-anywhere-5",
+    "migrateh": "heroku run knex migrate:latest -a bw-anywhere-fitness-5",
+    "rollbackh": "heroku run knex migrate:rollback -a bw-anywhere-fitness-5",
+    "databaseh": "heroku pg:psql -a bw-anywhere-fitness-5",
+    "seedh": "heroku run knex seed:run -a bw-anywhere-fitness-5",
     "deploy": "git push heroku main"
   },
   "engines": {
