@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js",
+    "start": "serve -s build",
     "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
     "migrate": "knex migrate:latest",
@@ -20,6 +20,7 @@
     "knex": "^0.95.14",
     "migrate": "^1.7.0",
     "package.json": "^2.0.1",
+    "serve": "^13.0.2",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
