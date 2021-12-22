@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const usersRouter = require("./client/users-router");
+const classesRouter = require('./classes/classes-router');
 const authRouter = require("./auth/auth-router");
 const session = require("express-session");
 const store = require("connect-session-knex")(session);
@@ -49,6 +50,7 @@ server.use(express.json());
 server.use(cors());
 
 server.use("/api/users", usersRouter);
+server.use('/api/classes', classesRouter);
 server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {

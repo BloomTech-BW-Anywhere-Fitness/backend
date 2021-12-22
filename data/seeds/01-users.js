@@ -14,6 +14,11 @@ exports.seed = async function (knex) {
       username: "hughespham",
       password: bcrypt.hashSync("abc123",6),
       role: 1,
+    },
+    {
+      username:"Jojostar",
+      password: bcrypt.hashSync("abcd", 4),
+      role: 2,
     }
 ]);
 };
