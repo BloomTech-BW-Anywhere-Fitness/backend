@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { checkClassExists, restricted, validateClass } = require('../middleware/middleware');
+const { checkClassExists, restricted, validateClass } = require('../auth/auth-middleware');
 const Classes = require('./classes-model');
 
 router.get('/', restricted, (req, res, next) => {
