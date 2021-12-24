@@ -5,7 +5,7 @@ const { tokenBuilder } = require('./auth-helpers')
 const bcrypt = require("bcryptjs");
 const User = require("../client/users-model");
 const {
- 
+ checkRole,
   checkPasswordLength,
   checkUsernameExists,
   checkUsernameFree,
@@ -63,7 +63,7 @@ router.post(
     "message": "Invalid credentials"
   }
  */
-  router.post('/login', (req, res, next) => {
+  router.post('/login', checkRole, (req, res, next) => {
     let { username, password } = req.body
   
     User.findBy({ username })

@@ -29,12 +29,26 @@ function restricted(req, res, next) {
 }
 
 // AUTHORIZATION
-const checkRole = (role) => (req, res, next) => {
-  if (req.decodedJwt.role === role) {
-    next();
-  } else {
-    next({ status: 403, message: "you have no power here!" });
+ const checkRole = async (req, res, next) => {
+    console.log(req.body)
+  try {
+    const users = await User.findBy({ username: req.body.username });
+    if (users) {
+      console.log(users)
+    }
+      return res.send('access denied')
+    //   next();
+    // } else {
+    //   next({ message: "Username taken", status: 422 });
+     
+  } catch (err) {
+    console.log(err)
   }
+  //if (req.decodedJwt.role === role) {
+    //next();
+  //} else {
+   // next({ status: 403, message: "you have no power here!" });
+  //}
 };
 /*
   If the username in req.body already exists in the database
